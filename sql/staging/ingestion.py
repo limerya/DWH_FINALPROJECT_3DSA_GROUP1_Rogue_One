@@ -64,11 +64,13 @@ def map_dtype_to_pg(dtype):
     return "TEXT"
 
 # ---------------- CREATE TABLE ----------------
-def create_table_from_df(table_name, df, conn, force_text=False):
+def create_table_from_df(table_name, df, conn, force_text_cols=None):
+    if force_text_cols is None:
+        force_text_cols = []
+
     cols = []
     for c in df.columns:
-        # Force TEXT for credit_card_number in staging_user_credit_card
-        if force_text or (table_name == "staging_user_credit_card" and c == "credit_card_number"):
+        if c in force_text_cols:
             cols.append(f"{c} TEXT")
         else:
             cols.append(f"{c} {map_dtype_to_pg(df[c].dtype)}")
@@ -88,13 +90,19 @@ def copy_to_postgres(df, table_name, conn):
 # ---------------- PICKLE INSERT ----------------
 def insert_pickle(df, table_name, conn):
     df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
-    df = df.astype(str).where(pd.notna(df), None)  # Force TEXT for all columns
-    create_table_from_df(table_name, df, conn, force_text=True)
+    # Force all columns to string to avoid integer overflow
+    df = df.astype(str).where(pd.notna(df), None)
+
+    # Force TEXT for all columns in pickle tables
+    create_table_from_df(table_name, df, conn, force_text_cols=df.columns.tolist())
+
     with conn.cursor() as cur:
         cur.execute(f"TRUNCATE TABLE {table_name} RESTART IDENTITY CASCADE;")
         conn.commit()
+
     records = df.to_dict(orient="records")
     str_records = [tuple(str(v) if v is not None else None for v in r.values()) for r in records]
+
     with conn.cursor() as cur:
         extras.execute_values(
             cur,
