@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS staging_user_job (
 CREATE TABLE IF NOT EXISTS staging_user_credit_card (
     user_id TEXT,
 	name TEXT,
-    credit_card_provider TEXT,
+    credit_card_number TEXT,
 	issuing_bank TEXT
 );
 
@@ -113,4 +113,5 @@ CREATE TABLE IF NOT EXISTS staging_line_item_products (
 CREATE TABLE IF NOT EXISTS staging_order_delays (
     order_id TEXT,
     delay_in_days TEXT
+
 );
