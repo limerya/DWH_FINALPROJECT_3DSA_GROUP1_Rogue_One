@@ -30,3 +30,5 @@ SELECT DISTINCT
 FROM staging_merchant_data;
 
 SELECT * FROM Dim_Merchant;
+
+--repush
