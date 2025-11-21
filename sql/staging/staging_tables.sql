@@ -6,7 +6,7 @@
 
 -- From Business Dept
 CREATE TABLE IF NOT EXISTS staging_product_list (
-    product_id TEXT,
+    product_id TEXT, 
     product_name TEXT,
     product_type TEXT,
     price TEXT
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS staging_user_data (
 	name TEXT,
 	street TEXT,
 	state TEXT,
-	city TEXT,
+	city TEXT, 
 	country TEXT, 
 	birthdate TEXT,
 	gender TEXT,
