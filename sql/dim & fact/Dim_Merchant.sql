@@ -1,3 +1,5 @@
+SELECT * FROM Dim_Merchant;
+
 CREATE TABLE IF NOT EXISTS Dim_Merchant (
     Merchant_Key SERIAL PRIMARY KEY,        
     merchant_id VARCHAR,                
@@ -28,7 +30,3 @@ SELECT DISTINCT
     country,
     contact_number     
 FROM staging_merchant_data;
-
-SELECT * FROM Dim_Merchant;
-
---repush
