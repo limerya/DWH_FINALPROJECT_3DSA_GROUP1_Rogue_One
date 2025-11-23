@@ -14,6 +14,3 @@ CREATE INDEX IF NOT EXISTS idx_stcd_campaign ON staging_transactional_campaign_d
 
 --consult kay sir if pwede to or aligned pa ba sa work natin pero kasi
 --pag wala to umabot 15 mins query ayaw pa rin mainsert naka pc na ko 
-
-
---repush
