@@ -1,3 +1,5 @@
+SELECT * FROM Dim_Product;
+
 CREATE TABLE IF NOT EXISTS Dim_Product (
     Product_Key SERIAL PRIMARY KEY,       
     product_id VARCHAR(255),              
@@ -13,7 +15,3 @@ SELECT DISTINCT
     product_type, 
     price::DECIMAL(10,2)       
 FROM staging_product_list;
-
-SELECT * FROM Dim_Product;
-
---repush
