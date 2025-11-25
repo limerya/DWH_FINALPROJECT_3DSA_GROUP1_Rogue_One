@@ -1,0 +1,7 @@
+pandas
+apache-airflow-providers-postgres
+pyarrow
+openpyxl
+lxml
+sqlalchemy
+psycopg2-binary
